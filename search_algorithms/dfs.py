@@ -29,5 +29,4 @@ def depthFirstSearch(start: Node, destination: Node):
         arr.append(goal.val)
         goal = path[goal]
     
-    arr.pop()
     return arr[::-1]

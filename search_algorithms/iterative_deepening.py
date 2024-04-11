@@ -1,20 +1,24 @@
 def iterativeDeepening(source, destination, maxDepth=20):
     for i in range(maxDepth + 1):
-        if dfsLimited(source, destination, i):
-            return True
+        res = dfsLimited(source, destination, i)
+        if res:
+            return res
     
-    return False
+    raise ValueError('Not Found')
 
 
 def dfsLimited(source, destination, depth):
 
     stack = [(source, depth)]
     visited = set([source])
+    path = {source : None}
+    goal = None
 
     while stack:
         c, d = stack.pop()
         if c == destination:
-            return True
+            goal = c
+            break
         if d == 0:
             continue
 
@@ -23,5 +27,15 @@ def dfsLimited(source, destination, depth):
             if nx not in visited:
                 visited.add(nx)
                 stack.append((nx, d - 1))
+                path[nx] = c
     
-    return False
+    if not goal:
+        return False
+
+    arr = []
+    while goal:
+        if goal is None: break
+        arr.append(goal.val)
+        goal = path[goal]
+    
+    return arr[::-1]

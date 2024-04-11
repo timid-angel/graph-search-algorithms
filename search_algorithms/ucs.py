@@ -1,10 +1,11 @@
 from queue import PriorityQueue
+from random import random
 from graph import Node
 
 def uniformCostSearch(start: Node, destination: Node):
 
     queue = PriorityQueue()
-    queue.put((0, start))
+    queue.put((0, random(), start))
     visited = set([start])
     path = {start: None}
     goal = None
@@ -13,7 +14,7 @@ def uniformCostSearch(start: Node, destination: Node):
         if not queue:
             raise ValueError('Not found')
         
-        r_cost, curr = queue.get()
+        r_cost, _, curr = queue.get()
         if curr == destination:
             goal = curr
             break
@@ -22,7 +23,7 @@ def uniformCostSearch(start: Node, destination: Node):
             nx, cost = nb
             if nx not in visited:
                 visited.add(nx)
-                queue.put((r_cost + cost, nx))
+                queue.put((r_cost + cost, random(), nx))
                 path[nx] = curr
     
     arr = []
@@ -31,5 +32,4 @@ def uniformCostSearch(start: Node, destination: Node):
         arr.append(goal.val)
         goal = path[goal]
     
-    arr.pop()
     return arr[::-1]

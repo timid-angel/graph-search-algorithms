@@ -7,8 +7,9 @@ def bidirectionalSearch(start: Node, destination: Node):
     d_queue = deque([destination])
     s_visited = set([start])
     d_visited = set([destination])
-    # path = {start: None}
-    # goal = None
+    sPath = {start: None}
+    dPath = {destination: None}
+    goal = None
     
     while True:
         if not s_queue and not d_queue:
@@ -17,6 +18,7 @@ def bidirectionalSearch(start: Node, destination: Node):
         if s_queue:
             cs = s_queue.popleft()
             if cs in d_visited:
+                goal = cs
                 break
                 
             for nb in cs.nbs:
@@ -24,10 +26,12 @@ def bidirectionalSearch(start: Node, destination: Node):
                 if nx not in s_visited:
                     s_visited.add(nx)
                     s_queue.append(nx)
+                    sPath[nx] = cs
         
         if d_queue:
             cd = d_queue.popleft()
             if cd in s_visited:
+                goal = cd
                 break
             
             for nb in cd.nbs:
@@ -35,12 +39,21 @@ def bidirectionalSearch(start: Node, destination: Node):
                 if nx not in d_visited:
                     d_visited.add(nx)
                     d_queue.append(nx)
+                    dPath[nx] = cd
     
-    # arr = []
-    # while goal:
-    #     if goal is None: break
-    #     arr.append(goal.val)
-    #     goal = path[goal]
+    curr = goal
+    sArr = []
+    while curr:
+        if curr is None: break
+        sArr.append(curr.val)
+        curr = sPath[curr]
     
-    # arr.pop()
-    # return arr[::-1]
+    dArr = []
+    while goal:
+        if goal is None: break
+        dArr.append(goal.val)
+        goal = dPath[goal]
+    
+    dArr.pop()
+    
+    return sArr[::-1] + dArr

@@ -1,12 +1,27 @@
 class Node:
-    def __init__(self, val):
+    def __init__(self, val, x=0, y=0):
         self.val = val
+        self.x = x
+        self.y = y
         self.nbs = []
+    
+    # def __eq__(self, value: object) -> bool:
+    #     return self.val
 
 class Graph:
     def __init__(self):
         self.nodes = []
     
+    def addNode(self, node: Node):
+        self.nodes.append(node)
+    
+    def removeNode(self, node: Node):
+        for i in range(len(self.nodes)):
+            for j in range(len(self.nodes[i].nbs)):
+                if self.nodes[i].nbs[j][0] == node:
+                    self.nodes[i].nbs.pop(j)
+        
+        self.nodes.remove(node)
 
     def addEdge(self, source: Node, destination: Node, cost: int):
         found_source = False

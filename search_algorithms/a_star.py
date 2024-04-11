@@ -1,19 +1,19 @@
 import math
 from queue import PriorityQueue
+from random import random
 
-from load_graph_from_file import coords
 from graph import Node
 
-def heuristic(node, destination):
+def heuristic(node, destination, coords):
     x1, y1 = coords[node]
     x2, y2 = coords[destination]
     return math.floor((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
 
-def aStarSearch(start: Node, destination: Node):
+def aStarSearch(start: Node, destination: Node, coords):
 
     queue = PriorityQueue()
-    queue.put((heuristic(start, destination), start, 0))
+    queue.put((0, random(), start, 0))
     visited = set([start])
     path = {start: None}
     goal = None
@@ -22,7 +22,7 @@ def aStarSearch(start: Node, destination: Node):
         if not queue:
             raise ValueError('Not found')
         
-        _, curr, r_cost = queue.get()
+        _, _, curr, r_cost = queue.get()
         if curr == destination:
             goal = curr
             break
@@ -31,7 +31,8 @@ def aStarSearch(start: Node, destination: Node):
             nx, cost = nb
             if nx not in visited:
                 visited.add(nx)
-                queue.put((heuristic(nx, destination) + r_cost + cost, nx, r_cost + cost))
+                h = heuristic(nx, destination, coords)
+                queue.put((h + r_cost + cost, random(), nx, r_cost + cost))
                 path[nx] = curr
     
     arr = []
@@ -40,5 +41,4 @@ def aStarSearch(start: Node, destination: Node):
         arr.append(goal.val)
         goal = path[goal]
     
-    arr.pop()
     return arr[::-1]
