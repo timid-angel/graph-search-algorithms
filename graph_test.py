@@ -1,4 +1,5 @@
-from graph import Graph, Node
+from graph import Graph
+from graph import Node
 
 # testing graph class
 graph = Graph()

@@ -10,8 +10,9 @@ def getDistance(city1, city2, coords):
 
 
 file = open("./data.txt", "r")
-coords = {} # map city -> coordinates
+coords = {} # map city names -> coordinates
 nodes = {} # map city names -> node objects
+cities = set()
 
 line = file.readline()
 while line:
@@ -22,9 +23,10 @@ while line:
         
         if city not in nodes:
             nodes[city] = Node(city)
-
+        cities.add(city)
         coords[nodes[city]] = (lat, long)
 
+cities = list(cities)
 file.close()
 
 graph = Graph()
