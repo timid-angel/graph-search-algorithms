@@ -1,0 +1,2 @@
+def eigenVectorCentrality(graph):
+    pass

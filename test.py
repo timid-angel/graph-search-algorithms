@@ -7,6 +7,10 @@ from search_algorithms.greedy import greedySearch
 from search_algorithms.bidirectional import bidirectionalSearch
 from search_algorithms.iterative_deepening import iterativeDeepening
 from search_algorithms.a_star import aStarSearch
+from centrality.degree import degreeCentrality
+from centrality.closeness import closenessCentrality
+from centrality.betweenness import betweennessCentrality
+from centrality.katz import katzCentrality
 
 graph = Graph()
 a = Node('a')
@@ -20,6 +24,7 @@ graph.addEdge(b, c, 2)
 graph.addEdge(c, d, 2)
 graph.addEdge(d, e, 5)
 graph.addEdge(a, e, 1)
+graph.addEdge(e, a, 1)
 
 
-print(bidirectionalSearch(a, e))
+print(katzCentrality(graph))

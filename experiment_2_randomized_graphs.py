@@ -70,8 +70,6 @@ def testWithGraph(graph, functions, coords, test_count):
     return res
 
 
-
-
 functions = [breadthFirstSearch, depthFirstSearch, uniformCostSearch, greedySearch, bidirectionalSearch, iterativeDeepening, aStarSearch]
 node_counts = [10, 20, 30, 40]
 edge_possibilites = [0.2, 0.4, 0.6, 0.8]
