@@ -1,3 +1,4 @@
+"""
 from collections import deque
 
 def katzCentrality(graph):
@@ -28,3 +29,34 @@ def alphaBFS(node, alpha):
         lvl += 1
 
     return score
+"""
+
+import numpy as np
+
+def katzCentrality(graph):
+    mat = [[0] * len(graph.nodes) for _ in range(len(graph.nodes))]
+    for j, n in enumerate(graph.nodes):
+        for ed, cost in n.nbs:
+            idx = 0
+            for i, node in enumerate(graph.nodes):
+                if node == ed:
+                    idx = i
+                    break
+            
+            mat[j][idx] = cost
+
+    alpha = 1
+
+    node_count = len(mat)
+    alt = np.eye(node_count)
+    lambdas, eigen_vectors = np.linalg.eig(alt - alpha * mat)
+    max_eigen = max(abs(lambdas))
+    sum_across = eigen_vectors.sum(axis=0)
+
+    results = np.linalg.solve(max_eigen * np.eye(node_count) - lambdas, sum_across)
+
+    res = []
+    for i in range(len(results)):
+        res.append((graph.nodes[i], abs(results[i].real)))
+
+    return sorted(res, key= lambda x: x[1], reverse=True)

@@ -12,7 +12,7 @@ from search_algorithms.iterative_deepening import iterativeDeepening
 from search_algorithms.a_star import aStarSearch
 
 def getDistance(n1, n2):
-    return math.floor((n1.x - n2.x) ** 2 + (n1.y - n2.y) ** 2)
+    return math.sqrt(math.floor((n1.x - n2.x) ** 2 + (n1.y - n2.y) ** 2))
 
 
 # generates a graph given the number of nodes and the probability of edges
@@ -20,14 +20,14 @@ def generateGraph(n, p):
     graph = Graph()
     coords = {}
     for i in range(n):
-        x, y = math.floor((random() * 1000)), math.floor((random() * 1000))
+        x, y = math.floor((random() * 100)), math.floor((random() * 100))
         node = Node(i)
         graph.addNode(node)
         coords[node] = (x, y)
 
     for i in range(n):
         for j in range(n):
-            if i != j and  random() < p:
+            if i != j and random() < p:
                 n1 = graph.nodes[i]
                 n2 = graph.nodes[j]
                 graph.addEdge(n1, n2, getDistance(n1, n2))
@@ -47,8 +47,8 @@ def testWithGraph(graph, functions, coords, test_count):
     while i < test_count:
         try:
             s, d = choice(graph.nodes), choice(graph.nodes)
-            
             for j, search in enumerate(functions):
+                
                 st = time.time()
                 path = None
                 if j < len(functions) - 1: 
@@ -70,7 +70,7 @@ def testWithGraph(graph, functions, coords, test_count):
     return res
 
 
-functions = [breadthFirstSearch, depthFirstSearch, uniformCostSearch, greedySearch, bidirectionalSearch, iterativeDeepening, aStarSearch]
+functions = [depthFirstSearch, breadthFirstSearch, uniformCostSearch, greedySearch, bidirectionalSearch, iterativeDeepening, aStarSearch]
 node_counts = [10, 20, 30, 40]
 edge_possibilites = [0.2, 0.4, 0.6, 0.8]
 test_count = 6
