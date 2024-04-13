@@ -12,7 +12,7 @@ class GraphAdjacencyMatrix:
     def add_vertex(self):
         """
         Time complexity: O(V^2) where V is the number of vertices
-        Space complexity: O(V^2)
+       
         """
         self.vertex_count += 1
         for row in self.adj_matrix:
@@ -22,7 +22,7 @@ class GraphAdjacencyMatrix:
     def add_edge(self, source, destination):
         """
         Time complexity: O(1)
-        Space complexity: O(1)
+       
         """
         if not (0 <= source < self.vertex_count and 0 <= destination < self.vertex_count):
             raise ValueError("Invalid vertex indices")
@@ -31,7 +31,7 @@ class GraphAdjacencyMatrix:
     def remove_vertex(self, vertex):
         """
         Time complexity: O(V^2) where V is the number of vertices
-        Space complexity: O(V^2)
+    
         """
         if not (0 <= vertex < self.vertex_count):
             raise ValueError("Invalid vertex index")
@@ -43,7 +43,7 @@ class GraphAdjacencyMatrix:
     def remove_edge(self, source, destination):
         """
         Time complexity: O(1)
-        Space complexity: O(1)
+      
         """
         if not (0 <= source < self.vertex_count and 0 <= destination < self.vertex_count):
             raise ValueError("Invalid vertex indices")
@@ -52,7 +52,7 @@ class GraphAdjacencyMatrix:
     def has_edge(self, source, destination):
         """
         Time complexity: O(1)
-        Space complexity: O(1)
+    
         """
         if not (0 <= source < self.vertex_count and 0 <= destination < self.vertex_count):
             raise ValueError("Invalid vertex indices")
@@ -61,7 +61,7 @@ class GraphAdjacencyMatrix:
     def neighbors(self, vertex):
         """
         Time complexity: O(V) where V is the number of vertices
-        Space complexity: O(V)
+     
         """
         if not (0 <= vertex < self.vertex_count):
             raise ValueError("Invalid vertex index")
